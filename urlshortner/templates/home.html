@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block title %}MiniURL{% endblock %}
+
+{% block content %}
+<style>
+    .rounded-form {
+        min-width: 25rem;
+        max-width: 50rem;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        background-color: #ffffff; 
+        margin-top: 3rem;
+    }
+  </style>
+
+<div class="flex justify-center">
+    <p class="text-4xl font-thin text-center text-gray-900 dark:text-white mt-10">Hellooo! Shorten Your URL here.👇🏼</p>
+  </div>
+
+<main class="flex-grow flex justify-center items-center">
+    <form class="max-w-sm mx-auto rounded-form" action="" method="post">
+      {% csrf_token %}
+      <div class="mb-5">
+        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your URL</label>
+        {{ form.url }}
+        {% if form.url.errors %}
+          <div class="text-red-500 text-sm mt-1">
+            {% for error in form.url.errors %}
+              {{ error }}
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+      <div class="mb-5">
+        <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">MiniURL</label>
+        {{ form.miniurl }}
+        {% if form.miniurl.errors %}
+          <div class="text-red-500 text-sm mt-1">
+            {% for error in form.miniurl.errors %}
+           `{{ error }}
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        {% if form.non_field_errors %}
+          <div class="text-red-500 text-sm mt-1">
+            {% for error in form.non_field_errors %}
+           `{{ error }}
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="flex justify-center">
+        <button type="submit" class="focus:outline-none text-white bg-green-600 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Generate</button>
+      </div>
+    </form>
+</main>
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block title %}MiniURL{% endblock %}
+
+{% block content %}
+
+<style>
+  @media (min-width: 640px) {
+  .mt-10 {
+    margin-top: 2.5rem;
+  }
+  .mt-6 {
+    margin-top: 1.5rem;
+  }
+  .mt-5 {
+    margin-top: 1.25rem;
+  }
+}
+</style>
+
+<div class="flex justify-center mt-10">
+  <p class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-thin text-center text-green-700 dark:text-white mt-5 sm:mt-10">Yayyy! Your MiniURL is successfully generated!</p>
+</div>
+
+<main class="flex-grow flex justify-center items-center mt-6">
+  <div>
+      <div class="text-center">
+          <p class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-thin text-gray-900 dark:text-white mt-5 sm:mt-10">Original URL: <a href="{{ val.url }}" class="text-blue-600 dark:text-blue-500 hover:underline">{{ val.url }}</a></p>
+      </div>
+
+      <div class="text-center">
+        <p class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-thin text-gray-900 dark:text-white mt-5 sm:mt-10">Your MiniURL: <span id="miniurl"> <a href="{{ request.scheme }}://{{ request.get_host }}/{{ val.miniurl }}" class="text-blue-600 dark:text-blue-500 hover:underline"> {{ request.scheme }}://{{ request.get_host }}/{{ val.miniurl }} </a></span></p>
+        <button id="copyButton" class="focus:outline-none text-white bg-green-600 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 mt-3 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+            Click to Copy MiniURL
+        </button>
+    </div>
+  </div>
+
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var copyButton = document.getElementById('copyButton');
+        var miniurl = document.getElementById('miniurl').innerText;
+    
+        copyButton.addEventListener('click', function() {
+            copyToClipboard(miniurl);
+            copyButton.innerText = 'Copied!!';
+        });
+    
+        function copyToClipboard(text) {
+            var tempInput = document.createElement('input');
+            tempInput.value = text;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+        }
+    });
+    </script>
+    
+
+
+</main>
+
+
+
+  
+
+
+
+{% endblock %}
